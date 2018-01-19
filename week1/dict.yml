@@ -1,0 +1,8 @@
+---
+
+Fruits:
+  - apple
+  - orange
+  - origin: europe
+  - packaging: plastic
+  - pineapple
