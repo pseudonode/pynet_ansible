@@ -1,0 +1,10 @@
+---
+
+
+- name: Group Vars
+  hosts: cisco
+  gather_facts: No
+
+  tasks:
+    - debug:
+        msg: "{{ local_as_number }}"

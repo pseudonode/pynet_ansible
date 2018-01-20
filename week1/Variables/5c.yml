@@ -1,0 +1,10 @@
+---
+
+
+- name: Host Vars
+  hosts: cisco
+  gather_facts: No
+
+  tasks:
+    - debug:
+        msg: "{{ remote_as_number }}"

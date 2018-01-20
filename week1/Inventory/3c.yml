@@ -1,0 +1,10 @@
+---
+
+
+- name: My first Playbook
+  hosts: all
+  gather_facts: No
+
+  tasks:
+    - name: Ping
+      ping:
