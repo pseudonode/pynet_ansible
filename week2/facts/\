@@ -13,12 +13,7 @@
     - name: task1
       ios_facts:
         provider: "{{ creds }}"
-      tags: 
-        - 2a
-        - 2b
-        - 2c
-        - 2ca
-        - 2d
+      tags: facts
 
     - name: Exercise 2a
       debug:
@@ -32,25 +27,12 @@
 
     - name: Exercise 2b again
       debug:
-        msg: "{{ item.key }}"
+        msg: "{{ item.keys }}"
       with_dict: "{{ ansible_net_interfaces }}"
       tags: 2b
 
-    - name: Exercise 2c
+    - name: task4
       debug:
-        msg: "Active Interfaces: {{ item.key }}"
-      with_dict: "{{ ansible_net_interfaces }}"      
-      when: "'up' in item.value.operstatus"
-      tags: 2c
-
-    - name: Exercise 2c Again
-      debug:
-        msg: "{{ ansible_net_interfaces }}"
-      when: "'up' in {{ansible_net_interfaces[key][operstatus]}}"
-      tags: 2ca
-
-    - name: Exercise 2d
-      debug:
-        msg: "{{ ansible_net_model }}"
-      when: "'881' in ansible_net_model"
-      tags: 2d
+        msg: "{{ ansible_net_interfaces.keys() }}"
+      when: "'down' in ansible_net_interfaces.key['lineprotocol']"
+  
