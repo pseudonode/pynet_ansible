@@ -1,0 +1,10 @@
+---
+vlans:
+  - id: 301
+    name: blue
+  - id: 302 
+    name: red
+  - id: 303 
+    name: green
+  - id: 304 
+    name: yellow

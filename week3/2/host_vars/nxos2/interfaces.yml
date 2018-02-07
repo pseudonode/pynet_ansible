@@ -1,0 +1,15 @@
+---
+
+interfaces:
+  - interface: Ethernet2/1
+    version: v4
+    state: present
+    ip_address: 10.10.10.2
+    mask: 24
+  
+  - interface: Ethernet2/1
+    version: v6
+    state: present
+    ip_address: 2001:db8:1010:200::2
+    mask: 64
+    

@@ -1,0 +1,30 @@
+---
+- name: NXOS VLAN Config
+
+  hosts: nxos
+
+  vars:
+    ssh:
+      host: "{{ ansible_host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      transport: cli
+
+    nxapi:
+      host: "{{ ansible_host }}" 
+      username: "{{ username }}" 
+      password: "{{ password }}" 
+      transport: nxapi
+      use_ssl: yes
+      validate_certs: no
+      port: 8443
+     
+
+  tasks:
+
+    - name: NXOS VLAN Module
+      nxos_vlan:
+        vlan_id: "{{ item.id }}"
+        name: "{{ item.name }}"
+        provider: "{{ nxapi }}"
+      with_items: "{{ vlans }}"

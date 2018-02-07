@@ -1,0 +1,24 @@
+---
+- name: IP Interface Configuration
+
+  hosts: nxos
+
+  tasks:
+
+    - name: NXOS IP Interface Configuration
+      nxos_ip_interface:
+        interface: "{{ item.interface }}"
+        version: "{{ item.version }}"
+        state: "{{ item.state }}"
+        addr: "{{ item.ip_address }}"
+        mask: "{{ item.mask  }}"
+        provider: "{{ ssh }}"
+      with_items: "{{ interfaces }}"
+      notify: wr_mem
+
+  handlers:
+    - name: wr_mem
+      nxos_command:
+        commands: copy run start
+        timeout: 30
+        provider: "{{ ssh }}"

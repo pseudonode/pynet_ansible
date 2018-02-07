@@ -1,0 +1,13 @@
+---
+- name: NXOS VLAN Config
+
+  hosts: nxos
+
+  tasks:
+
+    - name: NXOS VLAN Module
+      nxos_vlan:
+        vlan_id: "{{ item.id }}"
+        name: "{{ item.name }}"
+        provider: "{{ nxapi }}"
+      with_items: "{{ vlans }}"
