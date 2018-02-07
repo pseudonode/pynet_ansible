@@ -1,0 +1,28 @@
+---
+- name: SNMP Configuration on NXOS Switches
+
+  hosts: nxos
+
+  tasks:
+
+    - name: SNMP Location
+      nxos_snmp_location:
+       location: Outer Space
+       state: present
+       provider: "{{ nxapi }}"
+      notify: wr_mem
+       
+
+    - name: SNMP Contact
+      nxos_snmp_contact:
+        contact: Network Operations
+        state: present
+        provider: "{{ nxapi }}"
+      notify: wr_mem
+
+  handlers:
+    - name: wr_mem
+      nxos_config:           
+        commands: copy run start
+        provider: "{{ nxapi }}"
+      changed_when: True

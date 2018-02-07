@@ -22,3 +22,4 @@
         commands: copy run start
         timeout: 30
         provider: "{{ ssh }}"
+      changed_when: True

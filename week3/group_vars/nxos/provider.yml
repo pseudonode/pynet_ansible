@@ -5,6 +5,7 @@
       username: "{{ username }}"
       password: "{{ password }}"
       transport: cli
+      timeout: 30
 
     nxapi:
       host: "{{ ansible_host }}" 
@@ -14,3 +15,4 @@
       use_ssl: yes
       validate_certs: no
       port: 8443
+      timeout: 30
