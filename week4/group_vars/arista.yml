@@ -1,0 +1,15 @@
+---
+
+  ssh:
+    username: pyclass
+    password: 88newclass
+    transport: cli
+    timeout: 30
+  eapi: 
+    username: pyclass
+    password: 88newclass
+    transport: eapi
+    validate_certs: no
+    timeout: 30
+
+  gateway: '10.220.88.1'

@@ -1,0 +1,17 @@
+---
+
+- name: EOS Config Static Route Configuration
+
+  hosts: pynet-sw5
+
+  tasks: 
+    - name: Configure Static Route
+      eos_config:
+        lines:
+          - "ip route 10.1.0.1/32 {{ gateway }}"
+          - "ip route 10.1.0.2/32 {{ gateway }}"
+          - "ip route 10.1.0.3/32 {{ gateway }}"
+          - " ip route 10.1.0.4/32 {{ gateway }}"
+        provider: "{{ eapi }}"
+ 
+      
