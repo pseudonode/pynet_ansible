@@ -1,0 +1,6 @@
+---
+
+  ipv4_address: 1.1.1.101
+  ipv4_mask: /32
+  ipv6_address: 2001:db8::100 
+  ipv6_mask: /32

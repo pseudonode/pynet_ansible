@@ -1,0 +1,12 @@
+---
+- name: Configration of SNMP Contact and Location
+
+  hosts: cisco
+  gather_facts: False
+
+  tasks:
+
+    - name: OS Config - SNMP
+      ios_config:
+        provider: "{{ ssh }}"
+        lines: "{{ snmp_config }}"

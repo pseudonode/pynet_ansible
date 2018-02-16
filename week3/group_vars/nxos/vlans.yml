@@ -1,0 +1,10 @@
+---
+vlans_group:
+  - id: 301
+    name: blue
+  - id: 302 
+    name: red
+  - id: 303 
+    name: green
+
+vlans: "{{ vlans_group }} + {{ vlans_host |default([]) }}"

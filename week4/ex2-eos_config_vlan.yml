@@ -1,0 +1,16 @@
+---
+- name: Configuring VLANs with host_vars
+
+  hosts: arista
+  gather_facts: no
+
+  tasks:
+    - name: eos_config
+      eos_config:
+        parents: "vlan {{ item.vlan_number }}"
+        lines: 
+          - "name {{ item.vlan_name }}"
+        provider: "{{ eapi }}"
+        #defaults: yes
+      with_items: "{{ vlans }}"
+          

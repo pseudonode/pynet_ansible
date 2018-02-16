@@ -1,0 +1,8 @@
+---
+
+snmp_contact: "NetOps"
+snmp_location: "Outer Space"
+
+snmp_config:
+  - "snmp-server contact {{ snmp_contact }}"
+  - "snmp-server location {{ snmp_location }}"

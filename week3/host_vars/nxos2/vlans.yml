@@ -1,10 +1,4 @@
-vlans:
-  - id: 301
-    name: blue
-  - id: 302
-    name: red
-  - id: 303
-    name: green
+vlans_host:
   - id: 305
     name: orange
   - id: 306 

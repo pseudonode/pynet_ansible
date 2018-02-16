@@ -1,0 +1,8 @@
+---
+
+loopbacks:  
+  - id: 100
+    ipv4_address: 1.1.1.100 
+    ipv4_mask: 255.255.255.255
+    ipv6_address: 2001:db8::100 
+    ipv6_mask: /32

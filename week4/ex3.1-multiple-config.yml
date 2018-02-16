@@ -1,0 +1,13 @@
+---
+- name: IOS Config Module
+  hosts: pynet-rtr1
+  gather_facts: False
+  tasks:
+    - ios_config:
+        provider: "{{ ssh }}"
+        defaults: yes
+        parents: "interface loopback {{ item.id }}"
+        lines: 
+          - "ip address {{ item.ipv4_address }} {{ item.ipv4_mask }}"
+          - "ipv6 address {{ item.ipv6_address }}{{ item.ipv6_mask }}"
+      with_items: "{{ loopbacks }}"

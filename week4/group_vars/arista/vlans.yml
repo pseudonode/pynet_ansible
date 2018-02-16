@@ -1,0 +1,10 @@
+---
+vlans:
+  - vlan_number: 105
+    vlan_name: 'To'
+  - vlan_number: 106 
+    vlan_name: 'Infinity'
+  - vlan_number: 107 
+    vlan_name: 'and'
+  - vlan_number: 108 
+    vlan_name: 'Beyond'

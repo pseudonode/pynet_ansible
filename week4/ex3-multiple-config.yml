@@ -1,0 +1,42 @@
+---
+- name: IOS Config Module
+  hosts: pynet-rtr1
+  gather_facts: False
+  tasks:
+    - ios_config:
+        provider: "{{ ssh }}"
+        defaults: yes
+        parents: 
+          - "interface Loopback100"
+        lines: 
+          - "ip address {{ ipv4_address }} {{ ipv4_mask }}"
+          - "ipv6 address {{ ipv6_address }}{{ ipv6_mask }}"
+      tags: cisco
+
+- name: EOS Config Module
+  hosts: pynet-sw5
+  gather_facts: False
+  tasks:
+    - eos_config:
+        provider: "{{ eapi }}" 
+        defaults: yes 
+        parents: 
+          - "interface Loopback100"
+        lines: 
+          - "ip address {{ ipv4_address }}{{ ipv4_mask }}" 
+          - "ipv6 address {{ ipv6_address }}{{ ipv6_mask }}" 
+      tags: arista
+
+- name: NXOS Config Module
+  hosts: nxos1
+  gather_facts: False
+  tasks:
+    - nxos_config:
+        provider: "{{ nxapi }}" 
+        defaults: yes 
+        parents: 
+          - "interface loopback100"
+        lines: 
+          - "ip address {{ ipv4_address }}{{ ipv4_mask }}" 
+          - "ipv6 address {{ ipv6_address }}{{ ipv6_mask }}" 
+      tags: nxos
