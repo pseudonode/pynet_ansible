@@ -1,0 +1,29 @@
+---
+- name: NAPALM Install Config
+
+
+  hosts: nxos
+
+  tasks:
+  - name: Install Config
+    napalm_install_config:
+      provider: "{{ creds }}"
+      config_file: "./configs/{{ inventory_hostname }}.txt"
+      diff_file: "./diffs/{{ inventory_hostname }}.txt"
+      commit_changes: True
+      replace_config: False
+
+  - name: napalm_get_facts
+    napalm_get_facts:
+      provider: "{{ creds }}"
+      filter: 'interfaces_ip'
+
+  - set_fact:
+      interface_check: "{{ napalm_interfaces_ip[item]['ipv4'] }}"
+    with_items: "{{ napalm_interfaces_ip }}"
+    when: "'Ethernet2/1' in item"
+
+  #- debug: var=interface_check['ipv4']
+
+  - assert:
+      that: interface_check == '10.1.1.1' or '10.1.1.2'

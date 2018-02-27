@@ -1,0 +1,6 @@
+---
+creds:
+  host: "{{ ansible_host }}"
+  username: "{{ username }}"
+  password: "{{ password }}"
+  dev_os: 'ios'

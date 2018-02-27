@@ -1,0 +1,29 @@
+---
+- name: NAPALM Get Facts
+
+  hosts: cisco
+
+  tasks:
+    - name: napalm_get_facts
+      napalm_get_facts:
+        provider: "{{ creds }}"
+        filter: 'lldp_neighbors'
+
+    - name: Print lldp neighbors
+      debug: var=napalm_lldp_neighbors
+
+    - set_fact:
+        lldp_info: "{{ napalm_lldp_neighbors['FastEthernet4'][0] }}"
+
+    - name: Print lldp_info
+      debug: var=lldp_info
+
+    - set_fact:
+        lldp_alt_info: "{{ napalm_lldp_neighbors[item.key][0] }}"
+      with_dict: "{{ napalm_lldp_neighbors }}"
+
+    - name: Print lldp_alt_info
+      debug: var=lldp_alt_info
+
+    - assert:
+        that: lldp_alt_info.hostname == "twb-sf-hpsw1"
