@@ -1,0 +1,31 @@
+---
+- name: ios_command copy and lookup
+  
+  gather_facts: no
+  hosts: cisco
+
+  vars:
+    file_name: "./show_version/show_version_{{ ansible_host }}.txt"
+
+  tasks:
+    - name: ios_command
+      ios_command:
+        provider: "{{ ssh }}"
+        commands: "show version"
+      register: output
+
+    - set_fact:
+        show_version: "{{ output.stdout[0] }}"
+
+    - name: copy
+      copy: 
+        content: "{{ show_version }}"
+        dest: "{{ file_name }}"
+
+    - name: read data from file
+      set_fact:
+        new_show_version: "{{ lookup('file', file_name) }}"
+ 
+    - name: Print new variable 
+      debug: 
+        var: new_show_version

@@ -1,0 +1,39 @@
+---
+- name: NXOS NTP Config and Validation with Filters
+
+  hosts: nxos
+  gather_facts: False
+  vars:
+    ntp_servers:
+      - "ntp server 10.1.1.1"
+      - "ntp server 10.1.1.2"
+    extra_ntp_servers_no: []
+
+  tasks:
+  - name: NXOS Config NTP
+    nxos_config: 
+      lines: "{{ ntp_servers }}"
+      provider: "{{ ssh }}" 
+
+  - name: Obtain current NTP Servers
+    nxos_command:
+      commands: "show run | include ntp"
+      provider: "{{ ssh }}"
+    register: output
+
+  - set_fact:
+      current_ntp: "{{ output.stdout_lines[0] }}"
+
+  - name: Find Extra NTP Servers that should not be configured
+    set_fact:
+      extra_ntp_servers: "{{ current_ntp | difference(ntp_servers) | list }}"
+
+  - name: "Removing unnecessary NTP Servers from configuration"
+    set_fact: 
+      no_ntp_servers: "{{ lookup('template', './no_ntp_servers.j2') | from_yaml }}" 
+
+  - name: Remove unneeded NTP Servers
+    nxos_config:
+      commands: "{{ no_ntp_servers }}"
+      provider: "{{ ssh }}"
+    when: no_ntp_servers 

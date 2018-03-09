@@ -1,0 +1,20 @@
+---
+- name: Template Lookup Playbook
+
+  gather_facts: False
+  hosts: pynet-sw8
+
+  tasks:
+
+  - name: Run Napalm Getter
+    napalm_get_facts:
+      provider: "{{ creds }}"
+      filter: mac_address_table
+
+  - set_fact:
+      mac_dict: "{{ lookup('template', './convert_napalm_mac.j2') | from_yaml }}"
+
+  - debug:
+      var: mac_dict
+
+
