@@ -1,0 +1,17 @@
+@@ -5,6 +5,8 @@
+ transceiver qsfp default-mode 4x10G
+ !
+ hostname pynet-sw8
++!
++ntp server 130.126.24.24
+ !
+ spanning-tree mode mstp
+ !
+@@ -21,6 +23,7 @@
+ !
+ interface Ethernet1
+    spanning-tree portfast
++   spanning-tree cost 1
+ !
+ interface Ethernet2
+ !

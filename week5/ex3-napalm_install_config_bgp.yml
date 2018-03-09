@@ -1,0 +1,33 @@
+---
+- name: Napalm BGP Configuration and Validation
+  hosts: nxos
+
+  tasks:
+
+  - name: Napalm BGP Config
+    napalm_install_config: 
+      provider: "{{ creds }}"
+      config_file: "./configs/{{ inventory_hostname }}.txt"
+      diff_file: "./diffs/{{ inventory_hostname }}.txt"
+      get_diffs: True
+      commit_changes: True
+      replace_config: False
+    tags: configure
+
+  - pause:
+      seconds: 10
+
+  - name: Napalm BGP Validation
+    napalm_get_facts:
+      provider: "{{ creds }}"
+      filter: bgp_neighbors
+    tags: validate
+
+  - set_fact:
+      bgp_neighbors: "{{ napalm_bgp_neighbors['global']['peers'] }}"
+    tags: validate
+
+  - assert:
+      that: bgp_neighbors[item]['is_up'] == true
+    with_items: "{{ bgp_neighbors }}"
+    tags: validate

@@ -19,11 +19,11 @@
       filter: 'interfaces_ip'
 
   - set_fact:
-      interface_check: "{{ napalm_interfaces_ip[item]['ipv4'] }}"
-    with_items: "{{ napalm_interfaces_ip }}"
-    when: "'Ethernet2/1' in item"
+      device_ip: "{{ napalm_interfaces_ip['Ethernet2/1']['ipv4'] }}"
 
-  #- debug: var=interface_check['ipv4']
+  - set_fact:
+      device_ip: "{{ item }}"
+    with_items: "{{ device_ip }}"
 
   - assert:
-      that: interface_check == '10.1.1.1' or '10.1.1.2'
+      that: device_ip in ["10.1.1.1", "10.1.1.2"]
