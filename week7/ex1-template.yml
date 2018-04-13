@@ -1,0 +1,37 @@
+---
+- name: Templating Global Config
+  gather_facts: False
+  hosts: cisco:arista:nxos
+
+  tasks:
+  - name: Template Module
+    template: 
+      src: "./templates/template_global_config.j2"
+      dest: "./configs/{{ inventory_hostname }}-global.txt"
+    tags: 
+      - ios
+      - nxos
+      - eos
+
+- name: Push Templated Configuration to Device
+  hosts: cisco
+  tasks:
+    - ios_config:
+        src: "./configs/{{ inventory_hostname }}-global.txt"
+        provider: "{{ creds_core_ssh }}"
+
+- name: "Deploy configuration using Ansible Core (NX-OS): Part1b"
+  hosts: nxos
+  tasks:
+    - nxos_config:
+        provider: "{{ creds_core_nxapi }}"
+        src: "./configs/{{ inventory_hostname }}-global.txt"
+      tags: nxos
+
+- name: "Deploy configuration using Ansible Core (Arista): Part1b"
+  hosts: arista
+  tasks:
+    - eos_config:
+        provider: "{{ creds_core_eapi }}"
+        src: "./configs/{{ inventory_hostname }}-global.txt"
+      tags: eos

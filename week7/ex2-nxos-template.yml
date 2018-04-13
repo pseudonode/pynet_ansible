@@ -1,0 +1,21 @@
+---
+- name: NXOS Template and NAPALM Push
+
+  gather_facts: False
+  hosts: nxos
+
+  tasks:
+  - name: Generate NXOS Configuration
+    template: 
+      src: "./templates/nxos.j2"
+      dest: "./configs/{{ inventory_hostname }}.txt"
+
+  - name: Push NXOS BGP Config using NAPALM
+    napalm_install_config:
+      provider: "{{ creds_napalm }}"
+      config_file: "./configs/{{ inventory_hostname }}.txt"
+      commit_changes: True
+      replace_config: False
+      get_diffs: True
+      diff_file: "./diffs/{{ inventory_hostname }}.txt"
+

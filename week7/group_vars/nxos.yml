@@ -1,0 +1,57 @@
+
+--tform: nxos
+
+creds_core_ssh:
+  host: "{{ ansible_host }}"
+  username: "{{ username }}"
+  password: "{{ password }}"
+  transport: cli
+  timeout: 60
+
+creds_core_nxapi:
+  host: "{{ ansible_host }}"
+  username: "{{ username }}"
+  password: "{{ password }}"
+  transport: nxapi
+  use_ssl: yes
+  validate_certs: no
+  port: 8443
+  timeout: 60
+
+creds_napalm:
+  hostname: "{{ ansible_host }}"
+  username: "{{ username }}"
+  password: "{{ password }}"
+  dev_os: "nxos"
+  optional_args:
+    port: 8443
+
+vrf_list:
+    - red1
+    - red2
+    - red3
+platform: nxos
+
+global_config:
+  name_server1: 8.8.8.8
+  name_server2: 8.8.4.4
+  default_domain: bogus1.com
+  ntp1: 130.126.24.24
+  ntp2: 152.2.21.1
+
+ssh:
+  host: "{{ ansible_host }}" 
+  username: "{{ username }}" 
+  password: "{{ password }}" 
+  transport: cli 
+  timeout: 30
+
+nxapi:
+  host: "{{ ansible_host }}" 
+  username: "{{ username }}" 
+  password: "{{ password }}" 
+  transport: nxapi
+  use_ssl: yes 
+  validate_certs: no
+  port: 8443
+  timeout: 30

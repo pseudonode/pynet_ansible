@@ -1,0 +1,32 @@
+{% if platform == 'cisco' %}
+ip domain name {{ default_domain }}
+!
+ip name-server {{ name_server1 }}
+ip name-server {{ name_server2 }}
+!
+!
+ntp server {{ ntp1 }}
+ntp server {{ ntp2 }}
+!
+{% endif %}
+{% if platform == 'arista' %}
+ip domain-name {{ default_domain }}
+!
+ip name-server vrf default {{ name_server1 }}
+ip name-server vrf default {{ name_server2 }}
+!
+!
+ntp server {{ ntp1 }}
+ntp server {{ ntp2 }}
+!
+{% endif %}
+{% if platform == 'nxos' %}
+ip domain-name {{ default_domain }}
+!
+ip name-server {{ name_server1 }} {{ name_server2 }}
+!
+!
+ntp server {{ ntp1 }}
+ntp server {{ ntp2 }}
+!
+{% endif %}
