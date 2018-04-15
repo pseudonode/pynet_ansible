@@ -1,7 +1,0 @@
-interface {{ interface }}
-  ipv6 address {{ ipv6_address }}/{{ ipv6_netmask}}
-  no shutdown
-
-router bgp 22
-  neighbor {{ bgp_neighbor }} remote-as {{ as_number }}
-    address-family ipv6 unicast

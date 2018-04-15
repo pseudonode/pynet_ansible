@@ -1,8 +1,0 @@
----
-
-interface: "Ethernet2/4"
-ipv6_address: "2001:db8:1234:200c::2"
-ipv6_netmask: "64"
-bgp_neighbor: "2001:db8:1234:200c::1"
-as_number: "22"
-

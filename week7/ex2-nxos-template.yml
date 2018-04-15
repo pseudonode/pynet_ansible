@@ -7,7 +7,7 @@
   tasks:
   - name: Generate NXOS Configuration
     template: 
-      src: "./templates/nxos.j2"
+      src: "./templates/bgp_ipv6.j2"
       dest: "./configs/{{ inventory_hostname }}.txt"
 
   - name: Push NXOS BGP Config using NAPALM
